@@ -38,7 +38,7 @@ jobs:
           scan-type: image
           image-ref: "zozo-gatling-operator:${{ github.sha }}"
           format: "template"
-          template: "@/contrib/html.tpl"
+          template: "@gitrivy.tpl"
           exit-code: "1"
           ignore-unfixed: false
           vuln-type: "os,library"
