@@ -37,7 +37,7 @@ jobs:
         with:
           scan-type: image
           image-ref: "zozo-gatling-operator:${{ github.sha }}"
-          format: "table"
+          format: "json"
           exit-code: "1"
           ignore-unfixed: false
           vuln-type: "os,library"
