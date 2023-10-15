@@ -1,7 +1,10 @@
 {{$d := dict "CRITICAL" "🔴" "HIGH" "🟠" "MEDIUM" "🟡" "UNKNOWN" "🟤" }}
-_(image scanned: `{{ .Target }}`)_
 
-## {{ .Target }} ({{ .ImageDetail.OsFamily }} {{ .ImageDetail.OsVersion }})
+{{- range . -}}
+## {{ .Target }}
+
+### {{ .Type }}
+
 |Title|Severity|CVE|Package Name|Installed Version|Fixed Version|References|
 |:--:|:--:|:--:|:--:|:--:|:--:|:--|
 {{- range .Vulnerabilities }}
