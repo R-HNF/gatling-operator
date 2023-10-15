@@ -44,3 +44,4 @@ jobs:
           severity: "UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"
           timeout: "5m0s"
           scanners: "vuln,secret,config"
+          github-pat: ${{ secrets.GITHUB_TOKEN }}
