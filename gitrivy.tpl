@@ -10,3 +10,5 @@
 {{- range .Vulnerabilities }}
 |{{ .Title }}|{{ get $d .Vulnerability.Severity }}{{ .Vulnerability.Severity }}|{{ .VulnerabilityID }}|{{ .PkgName }}|{{ .InstalledVersion }}|{{ .FixedVersion }}|{{ range $index, $reference := .References }}{{ if $index }}, {{ end }}{{ $reference }}{{ end }}|
 {{- end }}
+
+{{- end }}
