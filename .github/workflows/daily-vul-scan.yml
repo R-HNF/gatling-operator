@@ -8,6 +8,10 @@ on:
   # pull_request:
   # workflow_dispatch:
 
+env:
+  IMAGE_NAME: zozo-gatling-operator
+  TRIVY_RESULT_FILE: trivy-results.md
+
 permissions:
   contents: read
   issues: write
@@ -23,7 +27,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
-          go-version-file: "./go.mod"
+          go-version-file: ./go.mod
           cache: true
 
       - name: Go modules sync
@@ -34,38 +38,38 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          make docker-build IMG=zozo-gatling-operator:${{ github.sha }}
+          make docker-build IMG=$IMAGE_NAME:${{ github.sha }}
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: "zozo-gatling-operator:${{ github.sha }}"
-          format: template
-          template: "@gitrivy.tpl"
-          output: trivy-results.md
+          image-ref: $IMAGE_NAME:${{ github.sha }}
           exit-code: 1
           ignore-unfixed: true
-          vuln-type: "os,library"
-          severity: "HIGH,CRITICAL"
-          timeout: "10m0s"
-          scanners: "vuln,secret,config"
+          vuln-type: os,library
+          severity: HIGH,CRITICAL
+          timeout: 10m0s
+          scanners: vuln,secret,config
+          format: template
+          template: "@gitrivy.tpl"
+          output: $TRIVY_RESULT_FILE
 
       - name: Insert text into Markdown file
         if: always()
         run: |
           sed -i '1i\
           ---\
-          title: "[trivy] Vulnerability Alert"\
-          labels: "trivy, vulnerability"\
+          title: [DO NOT CHANGE] Security Alert\
+          labels: trivy, vulnerability\
           ---\
-          ' ./trivy-results.md
+          ' $TRIVY_RESULT_FILE
 
       - uses: JasonEtco/create-an-issue@v2
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          filename: ./trivy-results.md
+          filename: $TRIVY_RESULT_FILE
           update_existing: true
           search_existing: open
