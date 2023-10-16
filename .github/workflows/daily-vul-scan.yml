@@ -66,5 +66,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           filename: ./trivy-results.md
-          update_existing: false
+          update_existing: true
           search_existing: open
