@@ -1,4 +1,4 @@
-{{$d := dict "CRITICAL" "🔴" "HIGH" "🟠" "MEDIUM" "🟡" "UNKNOWN" "🟤" }}
+{{ $d := dict "CRITICAL" "🔴" "HIGH" "🟠" "MEDIUM" "🟡" "UNKNOWN" "🟤" }}
 
 {{- range . -}}
 
@@ -21,7 +21,7 @@
     {{- end -}}
 |
 {{- end }}
-{{- else }}
+{{ else -}}
 _No vulnerabilities found_
 {{ end }}
 
