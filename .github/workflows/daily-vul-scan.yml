@@ -10,7 +10,7 @@ on:
 
 env:
   IMAGE_NAME: zozo-gatling-operator
-  TRIVY_RESULT_FILE: trivy-results.md
+  TRIVY_RESULT_MARKDOWN: trivy-results.md
 
 permissions:
   contents: read
@@ -53,9 +53,9 @@ jobs:
           scanners: vuln,secret,config
           format: template
           template: "@gitrivy.tpl"
-          output: $TRIVY_RESULT_FILE
+          output: ${{ env.TRIVY_RESULT_MARKDOWN }}
 
-      - name: Insert text into Markdown file
+      - name: Insert YAML front matter into the result markdown
         if: always()
         run: |
           sed -i '1i\
@@ -63,13 +63,14 @@ jobs:
           title: [DO NOT CHANGE] Security Alert\
           labels: trivy, vulnerability\
           ---\
-          ' $TRIVY_RESULT_FILE
+          ' "${{ env.TRIVY_RESULT_MARKDOWN }}"
 
-      - uses: JasonEtco/create-an-issue@v2
+      - name: Create or update the trivy result issue
+        uses: JasonEtco/create-an-issue@v2
         if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          filename: $TRIVY_RESULT_FILE
+          filename: ${{ env.TRIVY_RESULT_MARKDOWN }}
           update_existing: true
           search_existing: open
