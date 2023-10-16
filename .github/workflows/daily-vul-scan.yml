@@ -57,7 +57,7 @@ jobs:
           sed -i '1i\
           ---\
           title: "[trivy] Vulnerability Alert"\
-          label: trivy, vulnerability\
+          labels: trivy, vulnerability\
           ---\
           ' ./trivy-results.md
 
