@@ -38,13 +38,13 @@ jobs:
 
       - name: Build an image from Dockerfile
         run: |
-          make docker-build IMG=$IMAGE_NAME:${{ github.sha }}
+          make docker-build IMG="${{ env.TRIVY_RESULT_MARKDOWN }}:${{ github.sha }}"
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: image
-          image-ref: $IMAGE_NAME:${{ github.sha }}
+          image-ref: "${{ env.TRIVY_RESULT_MARKDOWN }}:${{ github.sha }}"
           exit-code: 1
           ignore-unfixed: true
           vuln-type: os,library
