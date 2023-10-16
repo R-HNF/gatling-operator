@@ -1,6 +1,6 @@
 {{ $d := dict "CRITICAL" "🔴" "HIGH" "🟠" "MEDIUM" "🟡" "UNKNOWN" "🟤" }}
 
-{{- range . -}}
+{{- range . }}
 
 ## {{ .Target }}
 
@@ -16,7 +16,7 @@
 | {{ .PkgName -}}
 | {{ .InstalledVersion -}}
 | {{ .FixedVersion -}}
-| {{ range $ref := .Vulnerability.References -}}{{ $ref }}<br>{{- end -}}
+| {{ range $ref := .Vulnerability.References -}}- {{ $ref }}<br>{{- end -}}
 |
 {{- end }}
 {{ else -}}
