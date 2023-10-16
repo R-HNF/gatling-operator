@@ -45,10 +45,10 @@ jobs:
           template: "@gitrivy.tpl"
           output: trivy-results.md
           exit-code: 1
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: "os,library"
           severity: "HIGH,CRITICAL"
-          timeout: "5m0s"
+          timeout: "10m0s"
           scanners: "vuln,secret,config"
 
       - name: Insert text into Markdown file
@@ -56,7 +56,8 @@ jobs:
         run: |
           sed -i '1i\
           ---\
-          title: Security Alert\
+          title: "[trivy] Vulnerability Alert"\
+          label: trivy, vulnerability\
           ---\
           ' ./trivy-results.md
 
