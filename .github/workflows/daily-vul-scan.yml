@@ -37,11 +37,29 @@ jobs:
         with:
           scan-type: image
           image-ref: "zozo-gatling-operator:${{ github.sha }}"
-          format: "template"
+          format: template
           template: "@gitrivy.tpl"
-          exit-code: "1"
+          output: trivy-results.md
+          exit-code: 1
           ignore-unfixed: false
           vuln-type: "os,library"
           severity: "HIGH,CRITICAL"
           timeout: "5m0s"
           scanners: "vuln,secret,config"
+
+      - name: Insert text into Markdown file
+        run: |
+          sed -i '1i\
+          ---\
+          title: Security Alert\
+          labels: bug, enhancement\
+          ---\
+          ' ./trivy-results.md
+
+      - uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: ./trivy-results.md
+          update_existing: true
+          search_existing: open
