@@ -48,6 +48,7 @@ jobs:
           scanners: "vuln,secret,config"
 
       - name: Insert text into Markdown file
+        if: always()
         run: |
           sed -i '1i\
           ---\
@@ -57,6 +58,7 @@ jobs:
           ' ./trivy-results.md
 
       - uses: JasonEtco/create-an-issue@v2
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
