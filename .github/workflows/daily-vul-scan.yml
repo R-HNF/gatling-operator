@@ -54,7 +54,8 @@ jobs:
       - name: Insert text into Markdown file
         if: always()
         run: |
-          touch ./trivy-results.md
+          touch ./trivy-results.mdt
+          echo 'fugafuga' > ./trivy-results.md
           sed -i '1i\
           ---\
           title: Security Alert\
