@@ -17,7 +17,7 @@
 | {{ .FixedVersion -}}
 | {{ range $ref := .Vulnerability.References -}}- {{ $ref }}<br>{{- end -}}
 |
-{{ end }}
+{{- end }}
 
 {{ else -}}
 _No vulnerabilities found_
