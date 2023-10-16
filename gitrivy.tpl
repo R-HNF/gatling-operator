@@ -21,6 +21,6 @@
 {{- end }}
 {{ else -}}
 _No vulnerabilities found_
-{{ end }}
+{{- end }}
 
 {{- end }}
