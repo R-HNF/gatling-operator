@@ -16,9 +16,7 @@
 | {{ .PkgName -}}
 | {{ .InstalledVersion -}}
 | {{ .FixedVersion -}}
-| {{ range $ref := .Vulnerability.References -}}
-    * {{ $ref }}
-    {{- end -}}
+| {{ range $ref := .Vulnerability.References -}}{{ $ref }}<br>{{- end -}}
 |
 {{- end }}
 {{ else -}}
