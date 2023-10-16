@@ -59,6 +59,7 @@ jobs:
           ---\
           title: Security Alert\
           ---\
+          hogehoge\
           ' ./trivy-results.md
 
       - uses: JasonEtco/create-an-issue@v2
