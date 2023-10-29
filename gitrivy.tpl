@@ -10,7 +10,7 @@
 | :--: | :--: | :--: | :--: | :--: | :--: | :-- |
 {{- range .Vulnerabilities }}
 | {{ .Title -}}
-| {{ get $d Severity }}{{ .Severity -}}
+| {{ get $d .Severity }}{{ .Severity -}}
 | {{ .VulnerabilityID -}}
 | {{ .PkgName -}}
 | {{ .InstalledVersion -}}
