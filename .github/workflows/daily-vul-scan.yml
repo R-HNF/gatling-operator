@@ -51,7 +51,8 @@ jobs:
           severity: HIGH,CRITICAL
           timeout: 10m0s
           scanners: vuln,secret,config
-          format: json
+          format: template
+          template: "@gitrivy.tpl"
           output: ${{ env.TRIVY_RESULT_MARKDOWN }}
 
       - name: Insert YAML front matter into the result markdown
