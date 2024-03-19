@@ -3,6 +3,9 @@ name: daily vulnerability scan
 on:
   # schedule:
   #   - cron: '0 0 * * *'
+  push:
+    branches:
+      - 'test/fix/#45-add-daily-vul-scan'
   workflow_dispatch:
 
 env:
